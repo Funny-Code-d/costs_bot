@@ -11,13 +11,10 @@ from moduls import expences
 async def get_statistics_day(message: Message):
 	answer = expences.output_today_buy(message.from_user.id)
 	if len(answer) > 4096:
-    	for x in range(0, len(answer), 4096):
-        	#bot.send_message(message.chat.id, info[x:x+4096])
-        	await message.answer(answer[x:x+4096], parse_mode=ParseMode.MARKDOWN)
+		for x in range(0, len(answer), 4096):
+			await message.answer(answer[x:x+4096], parse_mode=ParseMode.MARKDOWN)
 	else:
-    	#bot.send_message(message.chat.id, info)
-    	await message.answer(answer, parse_mode=ParseMode.MARKDOWN)
-	#await message.answer(answer, parse_mode=ParseMode.MARKDOWN)
+		await message.answer(answer, parse_mode=ParseMode.MARKDOWN)
 
 #--------------------------------------------------------------------------------------------
 
