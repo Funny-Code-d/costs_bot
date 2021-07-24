@@ -9,6 +9,10 @@ class append_buy_q(StatesGroup):
     category = State()
     price = State()
     description = State()
+
 class remove_buy_q(StatesGroup):
     choise_buy = State()
     confirm = State()
+
+class out_statictics(StatesGroup):
+    type_out = State()

@@ -72,3 +72,9 @@ class Keyboard:
 		]
 		for item in menu_items:
 			self.reply_keyboard.add(item)
+
+	def kb_out_buy(self):
+		self.reply_keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
+
+		self.reply_keyboard.add(KeyboardButton("Краткий"))
+		self.reply_keyboard.add(KeyboardButton("Подробный"))

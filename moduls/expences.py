@@ -37,20 +37,49 @@ def load_users():
 		list_id_user.append(int(user[0]))
 	return list_id_user
 
-def output_today_buy(user_id):
-	table = sql.statistics_today(user_id)
-	sum_buy = sql.sum_statistics_today(user_id)[0][0]
-	answer = ''
-	for item_table in table:
-		answer += text(bold(item_table[0]),"\n", italic(item_table[2]), '\n', bold(f"Дата:"),  f"{item_table[3].day}.{item_table[3].month}.{item_table[3].year}", "\n", f"Сумма: {item_table[1]}\n---------------------------------------\n")
-	answer += text(bold(f"\nОбщая сумма:  {sum_buy}"))
-	return answer
+# Display purchases within a certain interval
+def output_buy_long(user_id, type_out):
+	if type_out == "today":
+		table = sql.statistics_today(user_id)
+		sum_buy = sql.sum_statistics_today(user_id)[0][0]
+	elif type_out == "week":
+		table = sql.statistics_week(user_id)
+		sum_buy = sql.sum_statistics_week(user_id)[0][0]
+	elif type_out == "month":
+		table = sql.statistics_month(user_id)
+		sum_buy = sql.sum_statistics_month(user_id)[0][0]
+	
 
-def output_week_buy(user_id):
-	table = sql.statistics_week(user_id)
-	sum_buy = sql.sum_statistics_week(user_id)[0][0]
+	list_answer = []
 	answer = ''
 	for item_table in table:
+		if len(answer) > 3000:
+			list_answer.append(answer)
+			answer = ''
 		answer += text(bold(item_table[0]),"\n", italic(item_table[2]), '\n', bold(f"Дата:"),  f"{item_table[3].day}.{item_table[3].month}.{item_table[3].year}", "\n", f"Сумма: {item_table[1]}\n---------------------------------------\n")
 	answer += text(bold(f"\nОбщая сумма:  {sum_buy}"))
-	return answer
+	list_answer.append(answer)
+	return list_answer
+
+
+def output_buy_short(user_id, type_out):
+	if type_out == "today":
+		table = sql.statistics_today(user_id)
+		sum_buy = sql.sum_statistics_today(user_id)[0][0]
+	elif type_out == "week":
+		table = sql.statistics_week(user_id)
+		sum_buy = sql.sum_statistics_week(user_id)[0][0]
+	elif type_out == "month":
+		table = sql.statistics_month(user_id)
+		sum_buy = sql.sum_statistics_month(user_id)[0][0]
+
+	list_answer = []
+	answer = ''
+	for item_table in table:
+		if len(answer) > 3000:
+			list_answer.append(answer)
+			answer = ''
+		answer += text(italic(item_table[0]), "  |  ", bold(item_table[1]), "р   |  ", item_table[3], '\n')
+	answer += text(bold(f"\nОбщая сумма:  {sum_buy}"))
+	list_answer.append(answer)
+	return list_answer

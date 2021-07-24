@@ -136,3 +136,24 @@ class SQL_requests:
 		today = f'{year}-{month}-{day}'
 		select = f"""SELECT sum(sum) FROM table_costs WHERE date_cost >= '{today}' and user_id = {user_id}"""
 		return self._get_table_from_db(select)
+
+
+	def statistics_month(self, user_id):
+		today = datetime.datetime.now() - datetime.timedelta(days = 30)
+		day = today.day
+		month = today.month
+		year = today.year
+
+		today = f'{year}-{month}-{day}'
+		select = f"""SELECT category, sum, description, date_cost FROM table_costs WHERE date_cost >= '{today}' and user_id = {user_id}"""
+		return self._get_table_from_db(select)
+
+	def sum_statistics_month(self, user_id):
+		today = datetime.datetime.now() - datetime.timedelta(days = 30)
+		day = today.day
+		month = today.month
+		year = today.year
+
+		today = f'{year}-{month}-{day}'
+		select = f"""SELECT sum(sum) FROM table_costs WHERE date_cost >= '{today}' and user_id = {user_id}"""
+		return self._get_table_from_db(select)
