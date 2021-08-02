@@ -16,3 +16,9 @@ class remove_buy_q(StatesGroup):
 
 class out_statictics(StatesGroup):
     type_out = State()
+
+class Deptor_note(StatesGroup):
+    group_deptor = State()
+    name_deptor = State()
+    get_sum = State()
+    regist_new_user = State()

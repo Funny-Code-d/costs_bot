@@ -4,7 +4,6 @@ from aiogram.dispatcher import FSMContext
 #local imports
 from loader import dp
 from loader import kb
-from moduls.Keyboard_class import Keyboard
 from moduls import expences
 from moduls.Question import out_statictics
 

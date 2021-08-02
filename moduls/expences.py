@@ -83,3 +83,19 @@ def output_buy_short(user_id, type_out):
 	answer += text(bold(f"\nОбщая сумма:  {sum_buy}"))
 	list_answer.append(answer)
 	return list_answer
+
+def get_deptor_list_people(user_id, type_group):
+	table = sql.get_note_deptor(user_id, type_group)
+	list_poeple = [item[0] for item in table]
+	return list_poeple
+def insert_new_tranaction(user_id, deptor_name, deptor_sum, type_group):
+	sql.insert_new_tranaction(user_id, deptor_name, deptor_sum, type_group)
+
+def get_info_deptor_interface(user_id, deptor_name, type_group):
+	return sql.get_info_deptor(user_id, deptor_name, type_group)
+
+def upsert_deptor(user_id, name, new_sum, type_group, type_tran):
+	sql.update_deptor(user_id, name, new_sum, type_group, type_tran)
+
+def regist_new_user_db(user_id, name_deptor, type_group):
+	sql.regist_new_user_in_dept_book(user_id, name_deptor, type_group)
