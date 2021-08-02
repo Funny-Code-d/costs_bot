@@ -18,3 +18,20 @@
        - [Модуль для получения статистики покупок](https://github.com/Funny-Code-d/costs_bot/blob/main/handlers/output_statistics.py)
        - [Модуль с реализацией книжки задолжностей](https://github.com/Funny-Code-d/costs_bot/blob/main/handlers/deptor.py)
  ___
+<h1 align="center">Что нужно для запуска</h1>
+
+#### Необходимые пакеты python:
+
+    pip3 install psycopg2 aiogram asyncio
+    
+#### Запускать можно как в докере так и на прямую в python
+
+#### Docker
+
+    sudo docker build -t costs_bot .
+    sudo docker run --net=host --rm --name c_bot -d costs_bot
+    
+#### Python
+    python3 app.py
+
+> Для функционирования бота нужен файл config.py который содержит переменную BOT_TOKEN
