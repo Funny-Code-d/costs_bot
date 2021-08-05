@@ -28,11 +28,13 @@ async def get_statistics_week(message: Message, state: FSMContext):
 
 @dp.message_handler(lambda message: message.text.startswith("Вывести покупки за месяц"))
 async def get_statistics_month(message: Message, state: FSMContext):
-	await state.update_data({'interval' : "month"})
-	kb.kb_out_buy()
-	await message.reply("Выберите тип", reply_markup=kb.reply_keyboard)
-	await out_statictics.type_out.set()
-
+	kb.kb_list_month(message.from_user.id)
+	await message.answer("Выберите месяц", reply_markup=kb.reply_keyboard)
+	await out_statictics.choise_month.set()
+	# await state.update_data({'interval' : "month"})
+	# kb.kb_out_buy()
+	# await message.reply("Выберите тип", reply_markup=kb.reply_keyboard)
+	# await out_statictics.type_out.set()
 
 @dp.message_handler(state = out_statictics.type_out)
 async def get_output(message: Message, state: FSMContext):
@@ -55,3 +57,16 @@ async def get_output(message: Message, state: FSMContext):
 	else:
 		await message.answer("Повторите ввод, выберите из клавиатуры бота")
 		return
+
+
+@dp.message_handler(state = out_statictics.choise_month)
+async def get_statistics_month_step_2(message: Message, state: FSMContext):
+	if message.text in expences.get_month_list(message.from_user.id):
+		month = message.text
+		answer = expences.get_month_out_buy(message.from_user.id, month)
+		kb.get_menu_keyboard()
+		for a in answer:
+			await message.answer(a, reply_markup=kb.reply_keyboard, parse_mode=ParseMode.MARKDOWN)
+		await state.finish()
+	else:
+		await message.answer("Повторите, выберите из клавиатуры бота")

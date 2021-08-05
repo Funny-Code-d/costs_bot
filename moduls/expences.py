@@ -99,3 +99,22 @@ def upsert_deptor(user_id, name, new_sum, type_group, type_tran):
 
 def regist_new_user_db(user_id, name_deptor, type_group):
 	sql.regist_new_user_in_dept_book(user_id, name_deptor, type_group)
+
+def get_month_list(user_id):
+	return sql.get_month_statistics(user_id)
+
+def get_month_out_buy(user_id, month):
+	table = sql.statistics_month(user_id, month)
+	sum_buy = sql.sum_statistics_month(user_id, month)[0][0]
+
+
+	list_answer = []
+	answer = ''
+	for item_table in table:
+		if len(answer) > 3000:
+			list_answer.append(answer)
+			answer = ''
+		answer += text(italic(item_table[0]), "  |  ", bold(item_table[1]), "р   |  ", item_table[3], '\n')
+	answer += text(bold(f"\nОбщая сумма:  {sum_buy}"))
+	list_answer.append(answer)
+	return list_answer

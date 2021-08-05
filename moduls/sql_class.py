@@ -152,25 +152,56 @@ class SQL_requests:
 		select = f"""SELECT sum(sum) FROM table_costs WHERE date_cost >= '{today}' and user_id = {user_id}"""
 		return self._get_table_from_db(select)
 
-	def statistics_month(self, user_id):
-		today = datetime.datetime.now() - datetime.timedelta(days = 30)
-		day = today.day
-		month = today.month
-		year = today.year
+	def statistics_month(self, user_id, month_):
+		month, year = month_.split(".")
 
-		today = f'{year}-{month}-{day}'
-		select = f"""SELECT category, sum, description, date_cost FROM table_costs WHERE date_cost >= '{today}' and user_id = {user_id}"""
+		month_for_search = datetime.datetime(int(year), int(month), 1)
+
+		if month == 12:
+			end_date = datetime.datetime(int(year) + 1, 1, 1)
+		else:
+			end_date = datetime.datetime(int(year), int(month) + 1, 1)
+
+
+		start_month = f'{month_for_search.year}-{month_for_search.month}-{month_for_search.day}'
+		end_month = f'{end_date.year}-{end_date.month}-{end_date.day}'
+
+
+		select = f"""SELECT category, sum, description, date_cost FROM table_costs WHERE date_cost >= '{start_month}' and date_cost < '{end_month}' and user_id = {user_id}"""
 		return self._get_table_from_db(select)
 
-	def sum_statistics_month(self, user_id):
-		today = datetime.datetime.now() - datetime.timedelta(days = 30)
-		day = today.day
-		month = today.month
-		year = today.year
+	def sum_statistics_month(self, user_id, month_):
 
-		today = f'{year}-{month}-{day}'
-		select = f"""SELECT sum(sum) FROM table_costs WHERE date_cost >= '{today}' and user_id = {user_id}"""
+		month, year = month_.split(".")
+
+		month_for_search = datetime.datetime(int(year), int(month), 1)
+
+		if month == 12:
+			end_date = datetime.datetime(int(year) + 1, 1, 1)
+		else:
+			end_date = datetime.datetime(int(year), int(month) + 1, 1)
+
+
+		start_month = f'{month_for_search.year}-{month_for_search.month}-{month_for_search.day}'
+		end_month = f'{end_date.year}-{end_date.month}-{end_date.day}'
+
+		select = f"""SELECT sum(sum) FROM table_costs WHERE date_cost >= '{start_month}' and date_cost < '{end_month}' and user_id = {user_id}"""
 		return self._get_table_from_db(select)
+
+	def get_month_statistics(self, user_id):
+		select = f"""SELECT date_cost, count(*) FROM table_costs WHERE user_id = {user_id} GROUP BY date_cost"""
+
+		table = self._get_table_from_db(select)
+
+		# print(table[0][0].month)
+		return_table = []
+		for item in table:
+			if f'{item[0].month}.{item[0].year}' in return_table:
+				continue
+			else:
+				return_table.append(f'{item[0].month}.{item[0].year}')
+		
+		return return_table
 
 #---------------------------------------------------------------------------------------------------
 # Methods for works with dept note

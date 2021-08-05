@@ -90,6 +90,7 @@ async def edit_message_deptor_1(call: callback_query, state: FSMContext):
 	elif answer == 'exit':
 		await state.finish()
 		kb.get_menu_keyboard()
+		await call.message.edit_text("Блокнот закрыт")
 		await call.message.answer("Выберите пункт", reply_markup=kb.reply_keyboard)
 		return
 	else:

@@ -16,6 +16,7 @@ class remove_buy_q(StatesGroup):
 
 class out_statictics(StatesGroup):
     type_out = State()
+    choise_month = State()
 
 class Deptor_note(StatesGroup):
     group_deptor = State()

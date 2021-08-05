@@ -1,7 +1,7 @@
 from aiogram.types import ReplyKeyboardRemove, \
     ReplyKeyboardMarkup, KeyboardButton, \
     InlineKeyboardMarkup, InlineKeyboardButton
-from moduls.expences import get_today_buy, get_yesterday_buy, get_deptor_list_people
+from moduls.expences import get_today_buy, get_yesterday_buy, get_deptor_list_people, get_month_list
 
 class Keyboard:
 	def __init__(self):
@@ -88,32 +88,11 @@ class Keyboard:
 		self.reply_keyboard.add(KeyboardButton("Подробный"))
 # ----------------------------------------------------------------------------------------
 
-	def kb_deptor_note_step_1(self):
-		self.reply_keyboard = ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+	def kb_list_month(self, user_id):
+		self.reply_keyboard = ReplyKeyboardMarkup(resize_keyboard = True, row_width = 1)
 
-		self.reply_keyboard.add(KeyboardButton("Дал в долг"))
-		self.reply_keyboard.add(KeyboardButton("Взял в долг"))
-# ----------------------------------------------------------------------------------------
+		months = get_month_list(user_id)
 
-	def kb_deptor_note_step_2(self):
-		self.reply_keyboard = ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+		months.append("Отмена")
 
-		self.reply_keyboard.add(KeyboardButton("Добавить"))
-		self.reply_keyboard.add(KeyboardButton("Погасить"))
-# ----------------------------------------------------------------------------------------
-
-	def kb_deptor_note_step_3(self, user_id):
-		self.reply_keyboard = ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
-
-		menu_items = get_deptor_list_people(user_id)
-
-		# Appending items in keyboard
-		self.reply_keyboard.add(*menu_items)
-
-		self.reply_keyboard.add(KeyboardButton("Добавить человека"))
-# ----------------------------------------------------------------------------------------
-
-	def kb_deptor_note_step_4(self):
-		self.reply_keyboard = ReplyKeyboardMarkup(resize_keyboard = True)
-
-		
+		self.reply_keyboard.add(*months)
