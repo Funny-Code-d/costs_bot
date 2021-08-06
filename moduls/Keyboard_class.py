@@ -20,7 +20,14 @@ class Keyboard:
 		# KeyboardButton("Вывести покупки за месяц"),
 		# KeyboardButton("Книга задолжностей")
 		# ]
-		menu_items = ['Добавить покупку', "Удалить покупку", "Вывести покупки за сегодня", "Вывести покупки за неделю", "Вывести покупки за месяц", "Книга задолжностей"]
+		menu_items = (
+				'Добавить покупку',
+				"Удалить покупку",
+				"Вывести покупки за сегодня",
+				"Вывести покупки за неделю",
+				"Вывести покупки за месяц",
+				"Книга задолжностей",
+				)
 		
 		# Appending items in keyboard
 		self.reply_keyboard.add(*menu_items)
@@ -96,3 +103,10 @@ class Keyboard:
 		months.append("Отмена")
 
 		self.reply_keyboard.add(*months)
+
+	
+	def __call__(self):
+		return self.reply_keyboard
+	
+	def __repr__(self):
+		return f"{__class__} {self.reply_keyboard}"

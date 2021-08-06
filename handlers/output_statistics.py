@@ -39,7 +39,7 @@ async def get_statistics_month(message: Message, state: FSMContext):
 @dp.message_handler(state = out_statictics.type_out)
 async def get_output(message: Message, state: FSMContext):
 	
-	if message.text in ["Краткий", "Подробный"]:
+	if message.text in ("Краткий", "Подробный"):
 	
 		data = await state.get_data()
 		interval = data.get("interval")
@@ -68,5 +68,8 @@ async def get_statistics_month_step_2(message: Message, state: FSMContext):
 		for a in answer:
 			await message.answer(a, reply_markup=kb.reply_keyboard, parse_mode=ParseMode.MARKDOWN)
 		await state.finish()
+	elif message.text == "Отмена":
+		kb.get_menu_keyboard()
+		await message.answer("Выберите пункт меню", reply_mutkup=kb.reply_keyboard)
 	else:
 		await message.answer("Повторите, выберите из клавиатуры бота")
