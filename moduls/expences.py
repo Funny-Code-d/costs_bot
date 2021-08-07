@@ -1,7 +1,34 @@
-from moduls import sql_class
+from moduls.sql_class import SQL_requests
 from aiogram.utils.markdown import bold, code, italic, text
-sql = sql_class.SQL_requests('costs', 'costs_analysis', 'my_costs', 'localhost')
 
+
+sql = SQL_requests('costs', 'costs_analysis', 'my_costs', '192.168.0.200')
+
+# Class for get infornation about bot
+class Config_data:
+
+	@staticmethod
+	def get_token():
+		return sql.get_token_bot()
+
+	@staticmethod
+	def get_passwd():
+		return sql.get_password()
+
+# Class for get information about user purchases
+class Buy_action:
+
+	@staticmethod
+	def get_today_buy(user_id):
+		return sql.today_buy(user_id)
+
+	@staticmethod
+	def get_yesterday_buy(user_id):
+		return sql.yesterday_buy(user_id)
+
+	@staticmethod
+	def rm_record_cost(category, price, user_id):
+		sql.remove_buy(category, price, user_id)
 
 def get_token():
 	return sql.get_token_bot()

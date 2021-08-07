@@ -31,10 +31,8 @@ async def get_statistics_month(message: Message, state: FSMContext):
 	kb.kb_list_month(message.from_user.id)
 	await message.answer("Выберите месяц", reply_markup=kb.reply_keyboard)
 	await out_statictics.choise_month.set()
-	# await state.update_data({'interval' : "month"})
-	# kb.kb_out_buy()
-	# await message.reply("Выберите тип", reply_markup=kb.reply_keyboard)
-	# await out_statictics.type_out.set()
+
+
 
 @dp.message_handler(state = out_statictics.type_out)
 async def get_output(message: Message, state: FSMContext):
