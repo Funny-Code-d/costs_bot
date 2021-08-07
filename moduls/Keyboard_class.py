@@ -1,8 +1,6 @@
-from aiogram.types import ReplyKeyboardRemove, \
-    ReplyKeyboardMarkup, KeyboardButton, \
-    InlineKeyboardMarkup, InlineKeyboardButton
-from moduls.expences import get_today_buy, get_yesterday_buy, get_deptor_list_people, get_month_list
+from aiogram.types import ReplyKeyboardRemove, ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
 
+from moduls.expences import GetInfoPurchases
 class Keyboard:
 	def __init__(self):
 		self.reply_keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
@@ -12,14 +10,6 @@ class Keyboard:
 	def get_menu_keyboard(self):
 		self.reply_keyboard = ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
 
-		# menu_items = [
-		# KeyboardButton("Добавить покупку"),
-		# KeyboardButton("Удалить покупку"),
-		# KeyboardButton("Вывести покупки за сегодня"),
-		# KeyboardButton("Вывести покупки за неделю"),
-		# KeyboardButton("Вывести покупки за месяц"),
-		# KeyboardButton("Книга задолжностей")
-		# ]
 		menu_items = (
 				'Добавить покупку',
 				"Удалить покупку",
@@ -57,8 +47,8 @@ class Keyboard:
 		KeyboardButton("Сегодня")
 		]
 
-		today_buy = get_today_buy(user_id)
-		yesterday_buy = get_yesterday_buy(user_id)
+		today_buy = GetInfoPurchases.GetTodayBuy(user_id)
+		yesterday_buy = GetInfoPurchases.GetYesterdayBuy(user_id)
 
 		for item in today_buy:
 			item_buy = f"{item[0]}----{item[1]}"
@@ -98,7 +88,7 @@ class Keyboard:
 	def kb_list_month(self, user_id):
 		self.reply_keyboard = ReplyKeyboardMarkup(resize_keyboard = True, row_width = 1)
 
-		months = get_month_list(user_id)
+		months = GetInfoPurchases.GetMonthList(user_id)
 
 		months.append("Отмена")
 

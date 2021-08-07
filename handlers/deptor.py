@@ -6,6 +6,7 @@ from aiogram.utils.markdown import quote_html, hbold, hunderline, text
 # --------------------------------------------------------------------------------------------------
 from loader import dp
 from loader import kb
+from moduls.expences import DebtorNotebook
 from moduls import expences
 from moduls.Question import Deptor_note
 # --------------------------------------------------------------------------------------------------
@@ -43,14 +44,14 @@ def create_str_deptors(name_deptor: list, bold_name: int, user_id: int, type_gro
 			out_answer += text((f'{dept + 1}. {name_deptor[dept]}\n'))
 
 	out_answer += text("-----------------\n\n")
-	info_deptor = expences.get_info_deptor_interface(user_id, name_deptor[bold_name - 1], type_group)
+	info_deptor = DebtorNotebook.GetInformationAboutDebtor(user_id, name_deptor[bold_name - 1], type_group)
 
 	out_answer += text(f"Имя:   {info_deptor[0][0]}\nСумма:   {info_deptor[0][1]}")
 	return out_answer, bold_name
 # --------------------------------------------------------------------------------------------------
 def create_keyboard_deptors(user_id, number_user, type_group):
 
-	DeptList = expences.get_deptor_list_people(user_id, type_group)
+	DeptList = DebtorNotebook.GetDebtorListPeople(user_id, type_group)
 
 	deptors = [item for item in DeptList]
 
@@ -71,7 +72,7 @@ def create_keyboard_deptors(user_id, number_user, type_group):
 # --------------------------------------------------------------------------------------------------
 
 def get_name_deptor_for_change(user_id, number_user, type_group):
-	DeptList = expences.get_deptor_list_people(user_id, type_group)
+	DeptList = DebtorNotebook.GetDebtorListPeople(user_id, type_group)
 	deptors = [item for item in DeptList]
 
 	return deptors[number_user]
@@ -173,7 +174,7 @@ async def edit_message_deptor_3(message: Message, state: FSMContext):
 	name = data.get("name")
 	type_group = data.get("type")
 	type_tran = data.get("type_tran")
-	expences.upsert_deptor(message.from_user.id, name, answer_sum, type_group, type_tran)
+	DebtorNotebook.UpsertDeptor(message.from_user.id, name, answer_sum, type_group, type_tran)
 	await message.answer("Записано")
 
 	num = data.get("number_user")
@@ -190,7 +191,7 @@ async def edit_message_deptor_4(message: Message, state: FSMContext):
 	data = await state.get_data()
 	type_group = data.get('type')
 
-	expences.regist_new_user_db(message.from_user.id, name_new_deptor, type_group)
+	DebtorNotebook.RegistrationNewUserDB(message.from_user.id, name_new_deptor, type_group)
 	await message.answer("Запись добавлена")
 	num = data.get("number_user")
 	type_group = data.get("type")
