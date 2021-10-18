@@ -2,7 +2,7 @@ from moduls.sql_class import SQL_requests
 from aiogram.utils.markdown import bold, code, italic, text
 
 
-Sql = SQL_requests('costs', 'costs_analysis', 'my_costs', '192.168.0.200')
+Sql = SQL_requests('costs', 'costs_analysis', 'my_costs', '127.0.0.1')
 
 # Class for getting configuration infornation about bot
 class ConfigData:
