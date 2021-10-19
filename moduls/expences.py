@@ -116,6 +116,9 @@ class GetInfoPurchases:
 		list_answer.append(answer)
 		return list_answer
 
+
+	#--------------------------------------------
+	# Settings personal category
 	
 	@staticmethod
 	def getPersonalCategory(userID):
@@ -130,6 +133,7 @@ class GetInfoPurchases:
 	def removePresonalCategory(userID, nameCategory):
 		Sql.removePersonalCategoryDB(userID, nameCategory)
 		return None
+	#--------------------------------------------
 
 # Class for work with Debtor notebook
 class DebtorNotebook:

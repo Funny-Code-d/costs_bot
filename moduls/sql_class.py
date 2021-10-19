@@ -243,8 +243,9 @@ class SQL_requests:
 
 		self._insert_to_db(insert)
 
-
-	# Получение категорий пользователя
+#--------------------------------------------------------------------------------------------------------
+# Methods for settings personal category
+#--------------------------------------------------------------------------------------------------------
 
 	def getPersonalCategoryDB(self, userID):
 		query = f"SELECT name_category FROM category WHERE user_id = {userID}"
@@ -252,8 +253,7 @@ class SQL_requests:
 		select = self._get_table_from_db(query)
 
 		listCategory = [item[0] for item in select]
-		print(listCategory)
-
+		
 		return listCategory
 
 
