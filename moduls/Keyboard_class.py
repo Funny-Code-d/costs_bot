@@ -17,28 +17,21 @@ class Keyboard:
 				"Вывести покупки за неделю",
 				"Вывести покупки за месяц",
 				"Книга задолжностей",
+				"Настроить категории",
 				)
 		
 		# Appending items in keyboard
 		self.reply_keyboard.add(*menu_items)
 # ----------------------------------------------------------------------------------------
 # Create keyboard with categoryes
-	def kb_append_buy_1(self):
+	def kb_append_buy_1(self, userID = 691263908):
 		self.reply_keyboard = ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
 
-		menu_items = [
-		KeyboardButton("Продукты"),
-		KeyboardButton("Табак, жидкость, испаритель"),
-		KeyboardButton("Телефон\\Интренет\\Яндекс плюс"),
-		KeyboardButton("Проезд"),
-		KeyboardButton("Копилка"),
-		KeyboardButton("Прочее\\Развлечения"),
-		KeyboardButton("Одежда"),
-		KeyboardButton("Отмена")
-		]
+		# getting list personal categories from db
+		listCategory = GetInfoPurchases.getPersonalCategory(userID)
 		
 		# Appending items in keyboard
-		self.reply_keyboard.add(*menu_items)
+		self.reply_keyboard.add(*listCategory)
 # ----------------------------------------------------------------------------------------
 # Create keyboard for remove buy
 	def kb_remove_buy(self, user_id):
@@ -93,6 +86,23 @@ class Keyboard:
 		months.append("Отмена")
 
 		self.reply_keyboard.add(*months)
+
+	def changeCategoriesChoiseAction(self):
+		self.reply_keyboard = ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+		menu_items = (
+			KeyboardButton("Добавить"),
+			KeyboardButton("Удалить"),
+			KeyboardButton("Отмена")
+		)
+		self.reply_keyboard.add(*menu_items)
+	
+	def validNewCategory(self):
+		self.reply_keyboard = ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+		menu_items = (
+			KeyboardButton("Верно"),
+			KeyboardButton("Ввести заново")
+		)
+		self.reply_keyboard.add(*menu_items)
 
 	
 	def __call__(self):

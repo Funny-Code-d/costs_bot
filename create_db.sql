@@ -59,4 +59,15 @@ CREATE TABLE table_duty_history (
 		ON UPDATE CASCADE
 	);
 
--- 
+
+
+-- create personal categories
+CREATE TABLE category (
+    ID serial PRIMARY KEY, 
+    user_id integer, 
+    name_category text, 
+    FOREIGN KEY (user_id) 
+        REFERENCES list_users(user_id) 
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+) ;

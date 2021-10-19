@@ -116,6 +116,21 @@ class GetInfoPurchases:
 		list_answer.append(answer)
 		return list_answer
 
+	
+	@staticmethod
+	def getPersonalCategory(userID):
+		return Sql.getPersonalCategoryDB(userID)
+
+	@staticmethod
+	def addingPersonalCategory(userID, nameCategory):
+		Sql.addingPersonalCategoryDB(userID, nameCategory)
+		return None
+	
+	@staticmethod
+	def removePresonalCategory(userID, nameCategory):
+		Sql.removePersonalCategoryDB(userID, nameCategory)
+		return None
+
 # Class for work with Debtor notebook
 class DebtorNotebook:
 	
@@ -145,5 +160,3 @@ class DebtorNotebook:
 	@staticmethod
 	def RegistrationNewUserDB(user_id, name_deptor, type_group):
 		Sql.regist_new_user_in_dept_book(user_id, name_deptor, type_group)
-
-

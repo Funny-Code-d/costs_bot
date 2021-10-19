@@ -6,8 +6,7 @@ from aiogram.types import ReplyKeyboardRemove
 from moduls.Question import append_buy_q
 from loader import dp
 from loader import kb as keyboard
-from moduls.Keyboard_class import Keyboard
-from moduls.expences import BuyAction
+from moduls.expences import BuyAction, GetInfoPurchases
 
 
 @dp.message_handler(lambda message: message.text.startswith('Добавить покупку'))
@@ -20,7 +19,7 @@ async def command_append_buy(message: Message):
 @dp.message_handler(state = append_buy_q.category)
 async def append_buy_1(message: Message, state: FSMContext):
 
-	if message.text in ['Продукты', 'Табак, жидкость, испаритель', "Телефон\\Интренет\\Яндекс плюс", "Проезд", "Копилка", "Прочее\\Развлечения", "Одежда"]:
+	if message.text in  GetInfoPurchases.getPersonalCategory(message.from_user.id):
 		await state.update_data(
 			{'category' : message.text}
 			)

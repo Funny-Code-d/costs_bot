@@ -242,3 +242,27 @@ class SQL_requests:
 		insert = f"""INSERT INTO table_duty (user_id, deptor_name, type_group, deptor_sum) VALUES ({user_id}, '{name_deptor}', '{type_group}', 0)"""
 
 		self._insert_to_db(insert)
+
+
+	# Получение категорий пользователя
+
+	def getPersonalCategoryDB(self, userID):
+		query = f"SELECT name_category FROM category WHERE user_id = {userID}"
+
+		select = self._get_table_from_db(query)
+
+		listCategory = [item[0] for item in select]
+		print(listCategory)
+
+		return listCategory
+
+
+	def addingPersonalCategoryDB(self, userID, nameCategory):
+		query = f"INSERT INTO category (user_id, name_category) VALUES ({userID}, '{nameCategory}')"
+
+		self._insert_to_db(query)
+
+	def removePersonalCategoryDB(self, userID, nameCategory):
+		query = f"DELETE FROM category WHERE user_id = {userID} AND name_category = '{nameCategory}'"
+
+		self._insert_to_db(query)

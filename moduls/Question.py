@@ -23,3 +23,9 @@ class Deptor_note(StatesGroup):
     name_deptor = State()
     get_sum = State()
     regist_new_user = State()
+
+class ChangeCategory(StatesGroup):
+    action = State()
+    nameCategory = State()
+    checkValidNames = State()
+    removeCategory = State()
