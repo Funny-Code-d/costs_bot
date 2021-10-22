@@ -4,6 +4,27 @@ from aiogram.utils.markdown import bold, code, italic, text
 
 Sql = SQL_requests('costs', 'costs_analysis', 'my_costs', '127.0.0.1')
 
+class RegistUser:
+
+	@staticmethod
+	def checkUserRegistration(userID):
+		
+
+		sendQuery = Sql.checkUserInDB(userID)
+		
+		if len(sendQuery) > 0:
+    		
+			return True
+		elif len(sendQuery) == 0:
+    		
+			return False
+	
+	@staticmethod
+	def registNewUser(userID):
+    	
+		Sql.registNewUserDB(userID)
+
+
 # Class for getting configuration infornation about bot
 class ConfigData:
 

@@ -11,7 +11,7 @@ from moduls.expences import BuyAction, GetInfoPurchases
 
 @dp.message_handler(lambda message: message.text.startswith('Добавить покупку'))
 async def command_append_buy(message: Message):
-	keyboard.kb_append_buy_1()
+	keyboard.getPersonalCategoriesKeyboard(message.from_user.id)
 	await message.answer("Выберите категорию", reply_markup=keyboard())
 	await append_buy_q.category.set()
 

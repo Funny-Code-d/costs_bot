@@ -48,6 +48,29 @@ class SQL_requests:
 			print(error)
 
 
+
+
+#---------------------------------------------------------------------------------------------------
+
+
+	def checkUserInDB(self, userID):
+		query = f"SELECT * FROM list_users WHERE telegram_id = {userID}"
+
+		return self._get_table_from_db(query)
+	
+
+	def registNewUserDB(self, userID):
+		registration = f'INSERT INTO list_users VALUES ({userID})'
+		createCategories = f"""
+			INSERT INTO category (user_id, name_category) VALUES
+			({userID}, 'Продукты'),
+			({userID}, 'Проезд'),
+			({userID}, 'Покупка одежды')
+			"""
+		
+		self._insert_to_db(registration)
+		self._insert_to_db(createCategories)
+
 #---------------------------------------------------------------------------------------------------
 # Methods for get configuration data 
 #---------------------------------------------------------------------------------------------------

@@ -23,6 +23,11 @@ class Keyboard:
 		# Appending items in keyboard
 		self.reply_keyboard.add(*menu_items)
 # ----------------------------------------------------------------------------------------
+	def getPersonalCategoriesKeyboard(self, userID):
+		self.reply_keyboard = ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+		listCategory = GetInfoPurchases.getPersonalCategory(userID)
+		self.reply_keyboard.add(*listCategory)
+# ----------------------------------------------------------------------------------------
 # Create keyboard with categoryes
 	def kb_append_buy_1(self, userID = 691263908):
 		self.reply_keyboard = ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)

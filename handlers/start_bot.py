@@ -5,7 +5,7 @@ from loader import dp
 from moduls.Keyboard_class import Keyboard
 
 
-@dp.message_handler(commands=['menu', 'start'])
+@dp.message_handler(commands=['menu'])
 async def get_menu(message: Message):
 	kb = Keyboard()
 	kb.get_menu_keyboard()
