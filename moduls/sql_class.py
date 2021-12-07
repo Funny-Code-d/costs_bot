@@ -180,11 +180,10 @@ class SQL_requests:
 
 		month_for_search = datetime.datetime(int(year), int(month), 1)
 
-		if month == 12:
+		if int(month) == 12:
 			end_date = datetime.datetime(int(year) + 1, 1, 1)
 		else:
 			end_date = datetime.datetime(int(year), int(month) + 1, 1)
-
 
 		start_month = f'{month_for_search.year}-{month_for_search.month}-{month_for_search.day}'
 		end_month = f'{end_date.year}-{end_date.month}-{end_date.day}'
@@ -199,7 +198,7 @@ class SQL_requests:
 
 		month_for_search = datetime.datetime(int(year), int(month), 1)
 
-		if month == 12:
+		if int(month) == 12:
 			end_date = datetime.datetime(int(year) + 1, 1, 1)
 		else:
 			end_date = datetime.datetime(int(year), int(month) + 1, 1)

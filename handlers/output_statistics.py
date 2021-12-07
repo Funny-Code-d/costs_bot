@@ -68,6 +68,7 @@ async def get_statistics_month_step_2(message: Message, state: FSMContext):
 		await state.finish()
 	elif message.text == "Отмена":
 		keyboard.get_menu_keyboard()
-		await message.answer("Выберите пункт меню", reply_mutkup=keyboard())
+		await message.answer("Выберите пункт меню", reply_markup=keyboard())
+		await state.finish()
 	else:
 		await message.answer("Повторите, выберите из клавиатуры бота")
