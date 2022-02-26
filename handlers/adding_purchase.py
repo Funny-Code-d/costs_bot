@@ -9,12 +9,43 @@ from loader import kb as keyboard
 from moduls.expences import BuyAction, GetInfoPurchases
 
 
-@dp.message_handler(lambda message: message.text.startswith('Добавить покупку'))
+@dp.message_handler(lambda message: message.text.startswith('Добавить покупки'))
 async def command_append_buy(message: Message):
-	keyboard.getPersonalCategoriesKeyboard(message.from_user.id)
-	await message.answer("Выберите категорию", reply_markup=keyboard())
-	await append_buy_q.category.set()
+	# keyboard.getPersonalCategoriesKeyboard(message.from_user.id)
+	keyboard.createKeyboardList(("Вручную", "Сканировать чек"))
+	await message.answer("Выберите способ добавления", reply_markup=keyboard())
+	await append_buy_q.typeAppend.set()
+ 
+ 
+@dp.message_handler(state = append_buy_q.typeAppend)
+async def append_buy_0(message: Message, state: FSMContext):
+    type_action_append = message.text
 
+    if type_action_append == "Вручную":
+        keyboard.getPersonalCategoriesKeyboard(message.from_user.id)
+        await message.answer("Выберите категорию", reply_markup=keyboard())
+        await append_buy_q.category.set()
+
+    elif type_action_append == "Сканировать чек":
+        await message.answer("Сфотографируйте чек и отправьте", reply_markup=ReplyKeyboardRemove())
+        await append_buy_q.scan_action.set()
+
+    else:
+        keyboard.createKeyboardList(("Вручную", "Сканировать чек"))
+        await message.answer("Повторите ввод, выберите вариант из клавиатуры", reply_markup=keyboard())
+        return None
+
+
+@dp.message_handler(state = append_buy_q.scan_action, content_types=['photo'])
+async def append_buy_scan(message: Message, state: FSMContext):
+    await message.photo[-1].download(f'scans/{message.from_user.id}.jpg')
+    # print(message)
+    await state.finish()
+    
+# @dp.message_handler(content_types=['photo'])
+# async def handle_docs_photo(message):
+
+    # await message.photo[-1].download('test.jpg')
 
 @dp.message_handler(state = append_buy_q.category)
 async def append_buy_1(message: Message, state: FSMContext):

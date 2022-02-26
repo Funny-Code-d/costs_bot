@@ -6,6 +6,12 @@ class registration_user(StatesGroup):
     passwd = State()
 
 class append_buy_q(StatesGroup):
+    typeAppend = State()
+    
+    #скан
+    scan_action = State()
+    
+    # ручной ввод
     category = State()
     price = State()
     description = State()
@@ -29,3 +35,19 @@ class ChangeCategory(StatesGroup):
     nameCategory = State()
     checkValidNames = State()
     removeCategory = State()
+    
+    
+class display_statistics(StatesGroup):
+    #start
+    actionChoice = State()
+    choiseMonth = State()
+    # --
+    displayGeneral = State()
+    choiseIntervalGeneralDisplay = State()
+    # --
+    choiceViewAndDisplay = State()
+    # settings view
+    selectCategory = State()
+    selectInterval = State()
+    selectName = State()
+    

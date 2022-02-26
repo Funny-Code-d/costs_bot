@@ -47,7 +47,34 @@ class SQL_requests:
 		except (Exception, psycopg2.DatabaseError) as error:
 			print(error)
 
+	# Получение одной записи из базы в виде словаря
+	def _getOneRecordDict(self, req):
+		try:
+			self.cursor = self.conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+			self.cursor.execute(req, ())
+			getData = self.cursor.fetchone()
+			return dict(getData)
+		except (Exception, psycopg2.DatabaseError) as error:
+			print(error)
+			return None
 
+
+	# Получение данных в виде списка словарей
+	def _getRecordsDict(self, req):
+		try:
+			self.cursor = self.conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+			self.cursor.execute(req, ())
+			returnList = list()
+			while True:
+				record = self.cursor.fetchone()
+				if record is None:
+					break
+				else:
+					returnList.append(dict(record))
+			return returnList
+		except (Exception, psycopg2.DatabaseError) as error:
+			print(error)
+			return None
 
 
 #---------------------------------------------------------------------------------------------------

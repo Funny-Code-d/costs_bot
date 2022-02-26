@@ -67,7 +67,20 @@ CREATE TABLE category (
     user_id integer, 
     name_category text, 
     FOREIGN KEY (user_id) 
-        REFERENCES list_users(user_id) 
+        REFERENCES list_users(telegram_id) 
         ON UPDATE CASCADE
         ON DELETE CASCADE
-) ;
+);
+
+-- create personal view
+CREATE TABLE personal_views (
+	user_id integer,
+	category_id integer array,
+	name_view varchar(30),
+	number_days integer,
+	PRIMARY KEY (user_id, category_id, name_view, number_days),
+	FOREIGN KEY (user_id)
+		REFERENCES list_users(telegram_id)
+		ON UPDATE CASCADE
+		ON DELETE CASCADE
+);

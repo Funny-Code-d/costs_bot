@@ -11,11 +11,9 @@ class Keyboard:
 		self.reply_keyboard = ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
 
 		menu_items = (
-				'Добавить покупку',
-				"Удалить покупку",
-				"Вывести покупки за сегодня",
-				"Вывести покупки за неделю",
-				"Вывести покупки за месяц",
+				'Добавить покупки',
+				"Удалить покупки",
+				"Вывод покупок",
 				"Книга задолжностей",
 				"Настроить категории",
 				)
@@ -108,6 +106,13 @@ class Keyboard:
 			KeyboardButton("Ввести заново")
 		)
 		self.reply_keyboard.add(*menu_items)
+  
+	def createKeyboardList(self, buttonList):
+		self.reply_keyboard = ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+		buttons = list()
+		for item in buttonList:
+			buttons.append(KeyboardButton(item))
+		self.reply_keyboard.add(*buttons)
 
 	
 	def __call__(self):
